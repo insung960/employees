@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+
+import vo.Employees;
 
 public class EmployeesDao
 {
@@ -45,5 +48,10 @@ public class EmployeesDao
 			}
 		}
 		return count;
+	}
+	public List<Employees> selectEmployeesList()
+	{
+		
+		return null;
 	}
 }

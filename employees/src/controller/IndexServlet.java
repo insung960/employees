@@ -17,8 +17,9 @@ public class IndexServlet extends HttpServlet
 	private EmployeesDao employeesDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		System.out.println("/index URL 요청");
+		//System.out.println("/index URL 요청");
 		//EmployeesDap employeesDao = new EmployeesDao();
+		
 		this.employeesDao = new EmployeesDao();
 		int employeesRowCount = employeesDao.selectEmployeesCount();
 		
@@ -26,6 +27,7 @@ public class IndexServlet extends HttpServlet
 		
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
 		//rd.forward(request, response);
+		
 		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}
 }

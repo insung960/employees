@@ -8,9 +8,5 @@
 </head>
 <body>
 
-	<h1>Index</h1>
-	<div>
-		employees테이블의 전체행수 : <%=request.getAttribute("employeesRowCount") %>
-	</div>
 </body>
 </html>
