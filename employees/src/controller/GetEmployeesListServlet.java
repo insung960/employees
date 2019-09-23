@@ -14,7 +14,7 @@ import model.EmployeesDao;
 import vo.Departments;
 import vo.Employees;
 
-@WebServlet("/GetEmployeesListServlet")
+@WebServlet("/employees/getEmployeesListServlet")
 public class GetEmployeesListServlet extends HttpServlet 
 {
 	private EmployeesDao employeesDao;

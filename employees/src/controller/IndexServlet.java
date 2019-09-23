@@ -16,9 +16,10 @@ import model.EmployeesDao;
 import model.SalariesDao;
 import model.TitlesDao;
 
-@WebServlet("/index")
+@WebServlet({"/","/index"})
 public class IndexServlet extends HttpServlet 
 {
+	//Dao들을 사용하기위해  private로 먼저 만듬
 	private EmployeesDao employeesDao;
 	private DepartmentsDao departmentsDao;
 	private DeptEmpDao deptempDao;
@@ -30,6 +31,8 @@ public class IndexServlet extends HttpServlet
 		//System.out.println("/index URL 요청");
 		//EmployeesDap employeesDao = new EmployeesDao();
 		
+		//dao를 만들고 dao안의 Count 매서드를 불러온다
+		//매서드에서 리턴받은 int를 setAttribute로 저장한다 (별명,값)
 		employeesDao = new EmployeesDao();
 		int employeesRowCount = employeesDao.selectEmployeesCount();
 		request.setAttribute("employeesRowCount", employeesRowCount);
@@ -53,10 +56,12 @@ public class IndexServlet extends HttpServlet
 		salariesDao = new SalariesDao();
 		int selectSalariesCount =salariesDao.selectSalariesCount() ;
 		request.setAttribute("selectSalariesCount", selectSalariesCount);
+		/////////////////////////////////////////////////////////////////////////////
 				
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
 		//rd.forward(request, response);
 		
+		//페이지를 넘긴다
 		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}
 }
