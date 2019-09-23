@@ -23,7 +23,7 @@ public class EmployeesDao
 		try 
 		{	//널값을 다채우고 돌린다
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java123");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next())
@@ -65,7 +65,7 @@ public class EmployeesDao
 	}
 	public int selectEmployeesCount()
 	{
-		int count = 0;
+		int selectEmployeesCount = 0;
 		final String sql = "SELECT COUNT(*)FROM employees";
 		Connection conn =null;
 		PreparedStatement stmt = null;
@@ -74,13 +74,13 @@ public class EmployeesDao
 		try
 		{
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java123");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
 			if(rs.next())
 			{
-				count = rs.getInt("COUNT(*)");
+				selectEmployeesCount = rs.getInt("COUNT(*)");
 			}
 		}
 		catch(Exception e)			//자바의 변수 생명주기는 {}
@@ -100,11 +100,6 @@ public class EmployeesDao
 				e.printStackTrace();
 			}
 		}
-		return count;
-	}
-	public List<Employees> selectEmployeesList()
-	{
-		
-		return null;
+		return selectEmployeesCount;
 	}
 }

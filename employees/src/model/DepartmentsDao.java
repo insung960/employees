@@ -6,6 +6,47 @@ import vo.Departments;
 
 public class DepartmentsDao 
 {
+	public int selectDepartmentsCount()
+	{
+		int selectDepartmentsCount = 0;
+		final String sql = "SELECT COUNT(*)FROM departments";
+		Connection conn =null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try
+		{
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if(rs.next())
+			{
+				selectDepartmentsCount = rs.getInt("COUNT(*)");
+			}
+		}
+		catch(Exception e)			//자바의 변수 생명주기는 {}
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				rs.close();
+				stmt.close();
+				conn.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return selectDepartmentsCount;
+	}
+	
+	
 	public List<Departments> selectDepartmentsList()
 	{
 		List<Departments> list  = new ArrayList<Departments>();
@@ -17,7 +58,7 @@ public class DepartmentsDao
 		try 
 		{	//널값을 다채우고 돌린다
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java123");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/employees","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next())
