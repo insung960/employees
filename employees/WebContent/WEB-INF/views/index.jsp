@@ -20,6 +20,7 @@
 			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListServlet">목록</a></td>
 			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListOrderBy?order=asc">이름순</a></td>
 			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListOrderBy?order=desc">이름역순</a></td>
+			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListGroupByGender">성별순</a></td>
 		</tr>
 		<tr>
 			<td>dept</td>
@@ -31,7 +32,8 @@
 		<tr>
 			<td>dept_emp</td>
 			<td>${selectDeptEmpCount}</td>
-			<td></td>
+			<td><a href="${pageContext.request.contextPath}/deptemp/getDeptEmpListOrderBy?order=empName">이름순</a></td>
+			<td><a href="${pageContext.request.contextPath}/deptemp/getDeptEmpListOrderBy?order=DeptName">부서순</a></td>
 		</tr>
 		<tr>
 			<td>dept_manager</td>
@@ -41,12 +43,12 @@
 		<tr>
 			<td>titles</td>
 			<td>${selectTitlesCount}</td>
-			<td></td>
+			<td><a href="${pageContext.request.contextPath}/titles/getTitlesListDistinctServlet">중복제거</a></td>
 		</tr>
 		<tr>
 			<td>salaries</td>
 			<td>${selectSalariesCount}</td>
-			<td></td>
+			<td><a href="${pageContext.request.contextPath}/salaries/getSalariesStatistics">통계</a></td>
 		</tr>
 	</table>
 </body>
