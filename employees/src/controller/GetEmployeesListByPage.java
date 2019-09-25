@@ -31,8 +31,9 @@ public class GetEmployeesListByPage extends HttpServlet
 			rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
 		}
 		List<Employees> list = employeesDao.selectEmployeesListByPage(currentPage, rowPerPage);
-		/////////////////////////////////////////////////////////////////
-		//페이징
+		
+		
+		///////페이징//////////
 		int cntRow = employeesDao.selectEmployeesCount();
 		int lastPage= 0 ;
 		
@@ -45,11 +46,16 @@ public class GetEmployeesListByPage extends HttpServlet
 			lastPage = (cntRow / rowPerPage) + 1 ;
 		}
 		
+		
+		
 		//////////////////////////////////////////////////////////////////
 		System.out.println("------------------------------------");
 		System.out.println("서블릿 currentPage :"+currentPage);
 		System.out.println("서블릿 rowPerPage :"+rowPerPage);
+		//////////////////////////////////////////////////////////////////
 		
+		
+		//////jsp로 넘기기//////
 		request.setAttribute("list", list);
 		request.setAttribute("rowPerPage", rowPerPage);
 		request.setAttribute("lastPage", lastPage);
