@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class GetDepartmentsCountByDeptNoServlet
  */
 @WebServlet("/departments/getDepartmentsCountByDeptNoServlet")
-public class GetDepartmentsCountByDeptNoServlet extends HttpServlet {
+public class GetDepartmentsListCountByDeptNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

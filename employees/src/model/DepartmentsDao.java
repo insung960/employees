@@ -2,11 +2,46 @@ package model;
 
 import java.sql.*;
 import java.util.*;
+
+import db.DBHelper;
 import vo.Departments;
 import vo.Employees;
 
 public class DepartmentsDao 
 {
+	public List<Map<String,Object>> selectDepartmentListCountByDeptNo()
+	{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(de.dept_no) ,d.dept_name FROM dept_emp de INNER JOIN departments d ON de.dept_no = d.dept_no WHERE de.to_date = '9999-01-01' GROUP BY de.dept_no";
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		try
+		{
+			conn = DBHelper.getConnection();
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("deptName", rs.getString("d.dept_name"));
+				map.put("cnt", rs.getInt("COUNT(de.dept_no)"));
+				list.add(map);
+			}
+		}
+		catch(Exception e)
+		{
+			e.getStackTrace();
+		}
+		finally
+		{
+			DBHelper.close(rs, stmt, conn);
+		}
+		return list;		
+	}
+	
+	/////
 	public List<Departments> selectDepartmentsListOrderBy(String order)
 	{
 		List<Departments> list  = new ArrayList<Departments>();

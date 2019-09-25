@@ -18,10 +18,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${Department}" var="de">
-				<c:forEach items="${Department}" var="e">
-					<td>${de.e.firstName}</td>
-				</c:forEach>
+			<c:forEach items="${list}" var="list">
+				<tr>
+					<td>${list.deptName}</td>
+					<td>${list.firstName}</td>
+					<td>${list.lastName}</td>
+					<td>${list.fromDate}</td>
+					<td>${list.toDate}</td>
+				</tr>
 			</c:forEach>
 		</tbody>
 	</table>

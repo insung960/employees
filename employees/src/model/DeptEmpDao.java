@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vo.Departments;
 import vo.DeptEmp;
@@ -13,13 +15,12 @@ import vo.Employees;
 
 public class DeptEmpDao 
 {
-	public List<DeptEmp> selectDeptEmpListOrderBy(String order)
+	public List<Map<String,Object>> selectDeptEmpListOrderBy(String order)
 	{
-		List<DeptEmp> list  = new ArrayList<DeptEmp>();
+		List<Map<String,Object>> list  = new ArrayList<Map<String,Object>>();
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		DeptEmp deptemp = new DeptEmp();
 		String sql = null;
 		if(order.equals("empName"))
 		{
@@ -39,15 +40,13 @@ public class DeptEmpDao
 			rs = stmt.executeQuery();
 			while(rs.next())
 			{//rs로 반복돌려서 리스트 애드한다
-				deptemp = new DeptEmp();
-				deptemp.setEmployees(new Employees());
-				deptemp.setDepartments(new Departments());
-				deptemp.getEmployees().setFirstName(rs.getString("e.first_name"));
-				deptemp.getEmployees().setLastName(rs.getString("e.last_name"));
-				deptemp.getDepartments().setDeptName(rs.getString("d.dept_name"));
-				deptemp.setFromDate(rs.getString("de.from_date"));
-				deptemp.setToDate(rs.getString("de.to_date"));				
-				list.add(deptemp);				
+				Map<String,Object> map	= new HashMap<String,Object>();
+				map.put("firstName", rs.getString("e.first_name"));
+				map.put("lastName", rs.getString("e.last_name"));
+				map.put("fromDate", rs.getString("de.from_date"));
+				map.put("toDate", rs.getString("de.to_date"));
+				map.put("deptName", rs.getString("d.dept_name"));
+				list.add(map);
 			}
 		}
 		catch(Exception e)

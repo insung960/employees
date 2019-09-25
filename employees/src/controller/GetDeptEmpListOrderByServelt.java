@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,15 +20,10 @@ public class GetDeptEmpListOrderByServelt extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		deptempDao = new DeptEmpDao();
-		DeptEmp deptemp = new DeptEmp();
 		String order = request.getParameter("order");
-		List<DeptEmp> list = deptempDao.selectDeptEmpListOrderBy(order);
+		List<Map<String,Object>> list = deptempDao.selectDeptEmpListOrderBy(order);
+		
 		request.setAttribute("list",list);
-		for(DeptEmp de : list)
-		{
-			deptemp.getDepartments().getDeptName();
-			
-		}
 		request.getRequestDispatcher("/WEB-INF/views/deptemp/deptempListOrderBy.jsp").forward(request, response);	
 	}
 }

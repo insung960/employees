@@ -89,6 +89,11 @@
 			<td></td>
 			<td><a href="${pageContext.request.contextPath}/departments/getDepartmentsListOrderBy?order=desc">이름역순</a></td>
 		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><a href="${pageContext.request.contextPath}/departments/getDeptListCountByDeptNoServlet">부서현재인원수</a></td>
+		</tr>
 	</table>
 	<br>	
 		
@@ -106,7 +111,7 @@
 		<tr>
 			<td></td>
 			<td></td>
-			<td><a href="${pageContext.request.contextPath}/deptemp/getDeptEmpListOrderBy?order=DeptName">부서순</a></td>
+			<td><a href="${pageContext.request.contextPath}/deptemp/getDeptEmpListOrderBy?order=deptName">부서순</a></td>
 		</tr>
 	</table>
 	<br>
