@@ -71,7 +71,7 @@ public class DepartmentsDao
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT dept_name,dept_no FROM departments";
+		String sql = "SELECT dept_name,dept_no FROM departments ORDER BY dept_no";
 		Departments department = new Departments();
 		try 
 		{	//널값을 다채우고 돌린다

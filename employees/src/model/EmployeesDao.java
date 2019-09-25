@@ -14,6 +14,57 @@ import vo.Employees;
 
 public class EmployeesDao
 {				
+	//사원 번호 범위를 직접 지정함
+	public List<Employees> selectEmployeesListBetween(int fromNo,int toNo)
+	{
+		System.out.println("DAO fromNo :"+fromNo);
+		System.out.println("DAO toNo :"+toNo);
+		List<Employees> list  = new ArrayList<Employees>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM employees WHERE emp_no BETWEEN ? AND ?";
+		Employees employees = new Employees();
+		try 
+		{	//널값을 다채우고 돌린다
+			conn = DBHelper.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,fromNo);
+			stmt.setInt(2,toNo);
+			rs = stmt.executeQuery();
+			while(rs.next())
+			{//rs로 반복돌려서 리스트 애드한다
+				employees = new Employees();
+				employees.setEmpNo(rs.getInt("emp_no"));
+				employees.setFirstName(rs.getString("first_name"));
+				employees.setLastName(rs.getString("last_name"));
+				employees.setGender(rs.getString("gender"));
+				employees.setBirthDate(rs.getString("birth_date"));
+				employees.setHireDate(rs.getString("hire_date"));
+				list.add(employees);				
+			}
+		}
+		catch(Exception e)
+		{//위의 코드의 예외를 받는다
+			e.printStackTrace();
+		}
+		finally
+		{	
+			try
+			{	//무조건 한번 실행되서 모두닫는다 순서대로 닫아야함
+				DBHelper.close(rs, stmt, conn);
+			}
+			catch(Exception e)
+			{	//close의 예외용 답는다
+				e.printStackTrace();
+			}
+		}
+		
+		return list;		//만든 리스트를 Dao를 부른 서블렛에 리턴한다  >>>GetEmployeesListServlet
+	}
+	
+	
+	//페이징된 리스트
 	public List<Employees> selectEmployeesListByPage(int currentPage,int rowPerPage)
 	{
 		System.out.println("매서드 currentPage :"+currentPage);
@@ -54,9 +105,7 @@ public class EmployeesDao
 		{
 			try 
 			{
-				rs.close();
-				stmt.close();
-				conn.close();
+				DBHelper.close(rs, stmt, conn);
 			}
 			catch(Exception e)
 			{
@@ -68,8 +117,8 @@ public class EmployeesDao
 		return list;
 	}
 	
-	///////////////////////////////////////////////
 	
+	//그룹 젠더,젠더(인원수)
 	public List<Map<String,Object>> selectEmployeesListGroupByGender()
 	{
 		Connection conn = null;
@@ -103,7 +152,7 @@ public class EmployeesDao
 	}
 	
 	//////////////////////////////////////////////////////
-	
+	//사원 이름 오름 내림 정렬
 	public List<Employees> selectEmployeesListOrderBy(String order)
 	{
 		List<Employees> list  = new ArrayList<Employees>();
@@ -151,9 +200,7 @@ public class EmployeesDao
 		{	
 			try
 			{	//무조건 한번 실행되서 모두닫는다 순서대로 닫아야함
-				rs.close();
-				stmt.close();
-				conn.close();
+				DBHelper.close(rs, stmt, conn);
 			}
 			catch(Exception e)
 			{	//close의 예외용 답는다
@@ -205,9 +252,7 @@ public class EmployeesDao
 		{	
 			try
 			{	//무조건 한번 실행되서 모두닫는다 순서대로 닫아야함
-				rs.close();
-				stmt.close();
-				conn.close();
+				DBHelper.close(rs, stmt, conn);
 			}
 			catch(Exception e)
 			{	//close의 예외용 답는다
@@ -245,9 +290,7 @@ public class EmployeesDao
 		{
 			try 
 			{
-				rs.close();
-				stmt.close();
-				conn.close();
+				DBHelper.close(rs, stmt, conn);
 			}
 			catch(Exception e)
 			{
