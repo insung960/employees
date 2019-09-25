@@ -13,14 +13,70 @@ import db.DBHelper;
 import vo.Employees;
 
 public class EmployeesDao
-{							
-	public Map<String,Object> selectEmployeesListGroupByGender()
+{				
+	public List<Employees> selectEmployeesListByPage(int currentPage,int rowPerPage)
+	{
+		System.out.println("매서드 currentPage :"+currentPage);
+		System.out.println("매서드 rowPerPage :"+rowPerPage);
+		String sql = "SELECT * FROM employees LIMIT ?,?";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Employees> list = new	ArrayList<Employees>();
+		try
+		{
+			
+			conn = DBHelper.getConnection();
+			stmt = conn.prepareStatement(sql);
+			int startRow=0;
+			startRow = (currentPage-1)*rowPerPage;
+			stmt.setInt(1,startRow );
+			stmt.setInt(2,rowPerPage);
+			rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{
+				Employees employees = new Employees();
+				employees.setEmpNo(rs.getInt("emp_no"));
+				employees.setBirthDate(rs.getString("birth_date"));
+				employees.setFirstName(rs.getString("first_name"));
+				employees.setLastName(rs.getString("last_name"));
+				employees.setGender(rs.getString("gender"));
+				employees.setHireDate(rs.getString("hire_date"));
+				list.add(employees);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}	
+		finally
+		{
+			try 
+			{
+				rs.close();
+				stmt.close();
+				conn.close();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return list;
+	}
+	
+	///////////////////////////////////////////////
+	
+	public List<Map<String,Object>> selectEmployeesListGroupByGender()
 	{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT gender ,COUNT(gender) FROM employees GROUP BY gender";
-		Map<String, Object> map = new HashMap<String,Object>();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		try
 		{
 			conn = DBHelper.getConnection();
@@ -29,8 +85,10 @@ public class EmployeesDao
 			
 			while(rs.next())
 			{
+				Map<String,Object> map = new HashMap<String,Object>();
 				map.put("gender", rs.getString("gender"));
 				map.put("cnt", rs.getInt("COUNT(gender)"));
+				list.add(map);
 			}
 		}
 		catch(Exception e)
@@ -41,7 +99,7 @@ public class EmployeesDao
 		{
 			DBHelper.close(rs, stmt, conn);
 		}
-		return map;		
+		return list;		
 	}
 	
 	//////////////////////////////////////////////////////

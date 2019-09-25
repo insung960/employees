@@ -8,15 +8,17 @@
 </head>
 <body>
 	<h1>성별과 해당성별의 직원수</h1>
-	<table>
+	<table border="1">
 		<tr>
 			<td>gender</td>
 			<td>cnt</td>
 		</tr>
+		<c:forEach var="list" items="${list}">
 		<tr>
-			<td>${map.gender}</td>
-			<td>${map.cnt}</td>
+			<td>${list.gender}</td>
+			<td>${list.cnt}</td>
 		</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>

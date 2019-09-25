@@ -13,7 +13,7 @@ import model.DeptEmpDao;
 import vo.DeptEmp;
 
 @WebServlet("/deptemp/getDeptEmpListOrderBy")
-public class GetDeptEmpListOrderBy extends HttpServlet 
+public class GetDeptEmpListOrderByServelt extends HttpServlet 
 {
 	private DeptEmpDao deptempDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

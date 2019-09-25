@@ -17,10 +17,13 @@
 		<tr>
 			<td>emp</td>
 			<td>${employeesRowCount}</td>
-			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListServlet">목록</a></td>
+			<td>
+				<a href="${pageContext.request.contextPath}/employees/getEmployeesListServlet">목록</a>
+				<a href="${pageContext.request.contextPath}/employees/getEmployeesListByPage">목록페이징</a>
+			</td>
 			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListOrderBy?order=asc">이름순</a></td>
 			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListOrderBy?order=desc">이름역순</a></td>
-			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListGroupByGender">성별순</a></td>
+			<td><a href="${pageContext.request.contextPath}/employees/getEmployeesListGroupByGender">성별당 사원수</a></td>
 		</tr>
 		<tr>
 			<td>dept</td>
@@ -51,5 +54,12 @@
 			<td><a href="${pageContext.request.contextPath}/salaries/getSalariesStatistics">통계</a></td>
 		</tr>
 	</table>
+	
+	<form action="" mehod="post">
+		<div>
+			사원검색  :  
+			<input type = "text">
+		</div>
+	</form>
 </body>
 </html>
