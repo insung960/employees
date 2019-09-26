@@ -25,6 +25,10 @@
 </style>
 </head>
 <body>
+	
+	
+		<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+	
 
 <div class="container"  style="display: inline-block;text-align: center;">
 	<h1>Index</h1>

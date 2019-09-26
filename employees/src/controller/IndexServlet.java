@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DepartmentsDao;
 import model.DeptEmpDao;
@@ -26,10 +27,23 @@ public class IndexServlet extends HttpServlet
 	private DeptManagerDao deptmanagerDao;
 	private TitlesDao titlesDao;
 	private SalariesDao salariesDao;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		//System.out.println("/index URL 요청");
 		//EmployeesDap employeesDao = new EmployeesDao();
+		HttpSession session = request.getSession();
+		
+		//////
+		System.out.println("____________________index서블릿_____________________");
+		System.out.println("sessionEmpNo : "+session.getAttribute("sessionEmpNo"));
+		//////
+		
+		if(session.getAttribute("sessionEmpNo")==null)
+		{
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		
 		//dao를 만들고 dao안의 Count 매서드를 불러온다
 		//매서드에서 리턴받은 int를 setAttribute로 저장한다 (별명,값)

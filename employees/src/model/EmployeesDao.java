@@ -14,6 +14,58 @@ import vo.Employees;
 
 public class EmployeesDao
 {				
+	public int login(Employees employees)
+	{
+		int sessionEmpNo = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT emp_no FROM employees WHERE emp_no =? AND first_name =? AND last_name =?";
+		
+		try 
+		{	//널값을 다채우고 돌린다
+			
+			conn = DBHelper.getConnection();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,employees.getEmpNo());
+			stmt.setString(2,employees.getFirstName());
+			stmt.setString(3,employees.getLastName());
+			rs = stmt.executeQuery();
+			
+			while(rs.next())
+			{//rs로 반복돌려서 리스트 애드한다
+				sessionEmpNo = 1;		
+			}
+		}
+		catch(Exception e)
+		{//위의 코드의 예외를 받는다
+			e.printStackTrace();
+		}
+		finally
+		{	
+			try
+			{	//무조건 한번 실행되서 모두닫는다 순서대로 닫아야함
+				DBHelper.close(rs, stmt, conn);
+			}
+			catch(Exception e)
+			{	//close의 예외용 답는다
+				e.printStackTrace();
+			}
+		}
+		
+		///////////////////////////////
+		System.out.println("____________________EmpDao_____________________");
+		System.out.println("firstName : "+employees.getFirstName());
+		System.out.println("lastName : "+employees.getLastName());
+		System.out.println("empNo : "+employees.getEmpNo());
+		System.out.println("sessionEmpNo : "+sessionEmpNo);
+		///////////////////////////////
+		
+		return sessionEmpNo;		//만든 리스트를 Dao를 부른 서블렛에 리턴한다  >>>GetEmployeesListServlet
+	}	
+
+	
 	//사원 번호 범위를 직접 지정함
 	public List<Employees> selectEmployeesListBetween(int fromNo,int toNo)
 	{
